@@ -1,0 +1,719 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thiha Ko Ko | Mobile & Web Developer</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #7CB9E8;
+            --secondary: #4682B4;
+            --dark-bg: #0F172A;
+            --card-bg: #1E293B;
+            --text: #E2E8F0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--text);
+        }
+        
+        .gradient-text {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(124, 185, 232, 0.2);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            opacity: 0.9;
+            transform: translateY(-2px);
+        }
+        
+        .skill-badge {
+            background: rgba(124, 185, 232, 0.1);
+            border: 1px solid rgba(124, 185, 232, 0.3);
+            border-radius: 9999px;
+            padding: 0.5rem 1rem;
+            font-size: 0.875rem;
+            color: var(--primary);
+            display: inline-block;
+            margin: 0.25rem;
+            transition: all 0.3s ease;
+        }
+        
+        .skill-badge:hover {
+            background: rgba(124, 185, 232, 0.2);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding-left: 2rem;
+            padding-bottom: 2rem;
+            border-left: 2px solid var(--primary);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            width: 1rem;
+            height: 1rem;
+            border-radius: 50%;
+            background-color: var(--primary);
+            left: -0.5rem;
+            top: 0;
+        }
+        
+        .timeline-item:last-child {
+            border-left: 2px solid transparent;
+        }
+        
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 0.75rem;
+        }
+        
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(15, 23, 42, 0.8);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .section-title {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 2rem;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            width: 50%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            left: 0;
+            bottom: -0.5rem;
+            border-radius: 4px;
+        }
+        
+        /* Animation classes */
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .floating {
+            animation: floating 3s ease-in-out infinite;
+        }
+        
+        @keyframes floating {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .social-icon {
+            color: var(--text);
+            font-size: 1.5rem;
+            margin: 0 0.5rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+        
+        .progress-bar {
+            height: 8px;
+            border-radius: 4px;
+            background: rgba(124, 185, 232, 0.1);
+            overflow: hidden;
+        }
+        
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .timeline-item {
+                padding-left: 1.5rem;
+            }
+            
+            .navbar-items {
+                display: none;
+            }
+            
+            .mobile-menu-button {
+                display: block;
+            }
+            
+            .mobile-menu {
+                display: flex;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .mobile-menu-button {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: none;
+            }
+        }
+        
+        /* Optimize for PDF export */
+        @media print {
+            body {
+                width: 100%;
+                height: auto;
+                overflow: visible;
+                background-color: white;
+                color: black;
+            }
+            
+            .card {
+                break-inside: avoid;
+                page-break-inside: avoid;
+            }
+            
+            section {
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="fixed w-full py-4 px-8 bg-opacity-90 backdrop-filter backdrop-blur-lg z-50" style="background-color: rgba(15, 23, 42, 0.9);">
+        <div class="container mx-auto flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold gradient-text">TK.</a>
+            
+            <div class="navbar-items flex space-x-8">
+                <a href="#about" class="hover:text-blue-400 transition">About</a>
+                <a href="#skills" class="hover:text-blue-400 transition">Skills</a>
+                <a href="#experience" class="hover:text-blue-400 transition">Experience</a>
+                <a href="#projects" class="hover:text-blue-400 transition">Projects</a>
+                <a href="#contact" class="hover:text-blue-400 transition">Contact</a>
+            </div>
+            
+            <button class="mobile-menu-button">
+                <i class="fas fa-bars text-xl"></i>
+            </button>
+        </div>
+        
+        <div class="mobile-menu hidden flex-col absolute top-16 left-0 w-full py-4 px-8 bg-opacity-90 backdrop-filter backdrop-blur-lg" style="background-color: rgba(15, 23, 42, 0.95);">
+            <a href="#about" class="py-2 hover:text-blue-400 transition">About</a>
+            <a href="#skills" class="py-2 hover:text-blue-400 transition">Skills</a>
+            <a href="#experience" class="py-2 hover:text-blue-400 transition">Experience</a>
+            <a href="#projects" class="py-2 hover:text-blue-400 transition">Projects</a>
+            <a href="#contact" class="py-2 hover:text-blue-400 transition">Contact</a>
+        </div>
+    </nav>
+    
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center py-20">
+        <div class="container mx-auto px-8">
+            <div class="flex flex-col md:flex-row items-center justify-between">
+                <div class="md:w-1/2 fade-in">
+                    <p class="text-blue-400 mb-2">Hello, I'm</p>
+                    <h1 class="text-4xl md:text-6xl font-bold mb-4">Thiha Ko Ko</h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold gradient-text mb-6">Mobile & Web Developer</h2>
+                    <p class="text-gray-300 mb-8 max-w-lg">A tech and software development enthusiast with a passion for coding and the latest technology. With 3 years of experience in the industry focusing on Flutter, React, and Laravel.</p>
+                    <div class="flex space-x-4">
+                        <a href="#contact" class="btn-primary px-6 py-3 rounded-full font-medium">Get In Touch</a>
+                        <a href="#projects" class="px-6 py-3 rounded-full font-medium border border-blue-400 text-blue-400 hover:bg-blue-400 hover:bg-opacity-10 transition">View Work</a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 mt-12 md:mt-0 flex justify-center">
+                    <div class="relative w-64 h-64 md:w-80 md:h-80 rounded-full bg-gradient-to-r from-blue-400 to-blue-600 floating flex items-center justify-center">
+                        <div class="absolute inset-2 rounded-full" style="background-color: var(--dark-bg);"></div>
+                        <div class="z-10 text-center">
+                            <div class="text-3xl mb-2">💻</div>
+                            <div class="text-lg font-medium">3+ Years</div>
+                            <div class="text-sm text-gray-300">Experience</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="about" class="py-20">
+        <div class="container mx-auto px-8">
+            <h2 class="text-3xl font-bold section-title">About Me</h2>
+            
+            <div class="flex flex-col md:flex-row">
+                <div class="md:w-1/2 fade-in">
+                    <p class="text-gray-300 mb-4">I'm a tech and software development enthusiast with a passion for coding and the latest technology. With 3 years of experience in the industry, I've not only honed my technical skills but also excelled in communication and leadership.</p>
+                    
+                    <p class="text-gray-300 mb-6">Although my education is on hold due to the situations of my country, I'm continuing learning things by myself so far.</p>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+                        <div>
+                            <p class="text-gray-400">Name:</p>
+                            <p>Thiha Ko Ko</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Email:</p>
+                            <p>thihasithu0224@gmail.com</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Phone:</p>
+                            <p>+66628369284</p>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Location:</p>
+                            <p>Bangkok, Thailand</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex space-x-4">
+                        <a href="https://line.me/ti/p/VQsvVppMQt" target="_blank" class="btn-primary px-6 py-3 rounded-full font-medium">
+                            <i class="fab fa-line mr-2"></i> Line
+                        </a>
+                        <a href="https://github.com/thihako2" target="_blank" class="px-6 py-3 rounded-full font-medium border border-blue-400 text-blue-400 hover:bg-blue-400 hover:bg-opacity-10 transition">
+                            <i class="fab fa-github mr-2"></i> GitHub
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 mt-8 md:mt-0 md:pl-12">
+                    <div class="card p-6 mb-6">
+                        <h3 class="text-xl font-semibold mb-4">Education</h3>
+                        <div class="mb-4">
+                            <p class="text-blue-400 font-medium">Distance Physics (On Hold)</p>
+                            <p>GTI Wakhema</p>
+                        </div>
+                        <div>
+                            <p class="text-blue-400 font-medium">Computer Science (Current, Online)</p>
+                            <p>University of People</p>
+                        </div>
+                    </div>
+                    
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-4">Languages</h3>
+                        <div class="mb-4">
+                            <p class="font-medium">English</p>
+                            <p class="text-sm text-gray-400 mb-2">Full Professional Proficiency</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium">Myanmar, Burmese</p>
+                            <p class="text-sm text-gray-400 mb-2">Native Speaker</p>
+                            <div class="progress-bar">
+                                <div class="progress" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Skills Section -->
+    <section id="skills" class="py-20" style="background-color: rgba(30, 41, 59, 0.3);">
+        <div class="container mx-auto px-8">
+            <h2 class="text-3xl font-bold section-title">Technical Skills</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="card p-6 fade-in" style="animation-delay: 0.1s;">
+                    <div class="text-3xl mb-4 text-blue-400">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Languages</h3>
+                    <div class="flex flex-wrap">
+                        <span class="skill-badge">Java</span>
+                        <span class="skill-badge">PHP</span>
+                        <span class="skill-badge">JavaScript</span>
+                        <span class="skill-badge">Dart</span>
+                        <span class="skill-badge">HTML</span>
+                        <span class="skill-badge">CSS</span>
+                    </div>
+                </div>
+                
+                <div class="card p-6 fade-in" style="animation-delay: 0.2s;">
+                    <div class="text-3xl mb-4 text-blue-400">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Technologies</h3>
+                    <div class="flex flex-wrap">
+                        <span class="skill-badge">Laravel</span>
+                        <span class="skill-badge">Flutter</span>
+                        <span class="skill-badge">React</span>
+                        <span class="skill-badge">AWS</span>
+                        <span class="skill-badge">MySQL</span>
+                        <span class="skill-badge">Firebase</span>
+                        <span class="skill-badge">Android</span>
+                    </div>
+                </div>
+                
+                <div class="card p-6 fade-in" style="animation-delay: 0.3s;">
+                    <div class="text-3xl mb-4 text-blue-400">
+                        <i class="fas fa-sitemap"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-4">Concepts</h3>
+                    <div class="flex flex-wrap">
+                        <span class="skill-badge">OOP</span>
+                        <span class="skill-badge">Design Patterns</span>
+                        <span class="skill-badge">MVC</span>
+                        <span class="skill-badge">RESTful APIs</span>
+                        <span class="skill-badge">Responsive Design</span>
+                        <span class="skill-badge">Version Control</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-12">
+                <h3 class="text-2xl font-semibold mb-6">Certifications</h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+                    <div class="card p-4 fade-in" style="animation-delay: 0.4s;">
+                        <p class="font-medium">Introduction to Android Mobile Application Development</p>
+                    </div>
+                    <div class="card p-4 fade-in" style="animation-delay: 0.5s;">
+                        <p class="font-medium">Version Control</p>
+                    </div>
+                    <div class="card p-4 fade-in" style="animation-delay: 0.6s;">
+                        <p class="font-medium">Technical Support</p>
+                    </div>
+                    <div class="card p-4 fade-in" style="animation-delay: 0.7s;">
+                        <p class="font-medium">Programming Foundation Fundamental</p>
+                    </div>
+                    <div class="card p-4 fade-in" style="animation-delay: 0.8s;">
+                        <p class="font-medium">Responsive Web Design</p>
+                    </div>
+                    <div class="card p-4 fade-in" style="animation-delay: 0.9s;">
+                        <p class="font-medium">Programming Fundamental</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Experience Section -->
+    <section id="experience" class="py-20">
+        <div class="container mx-auto px-8">
+            <h2 class="text-3xl font-bold section-title">Work Experience</h2>
+            
+            <div class="mt-8">
+                <div class="timeline-item fade-in" style="animation-delay: 0.1s;">
+                    <div class="ml-6">
+                        <h3 class="text-xl font-semibold">Flutter Developer</h3>
+                        <p class="text-blue-400">Impulse International</p>
+                        <p class="text-gray-400 text-sm mb-2">August 2024 - December 2024</p>
+                        <p class="text-gray-300">Developed mobile applications using Flutter framework, collaborating with cross-functional teams to deliver high-quality solutions.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in" style="animation-delay: 0.2s;">
+                    <div class="ml-6">
+                        <h3 class="text-xl font-semibold">Flutter Developer</h3>
+                        <p class="text-blue-400">Mall Plus</p>
+                        <p class="text-gray-400 text-sm mb-2">January 2024 - August 2024</p>
+                        <p class="text-gray-300">Maintained and redesigned the customer facing food ordering app and delivery biker app with Flutter and Laravel. Implemented new features and optimized app performance.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in" style="animation-delay: 0.3s;">
+                    <div class="ml-6">
+                        <h3 class="text-xl font-semibold">Android Developer</h3>
+                        <p class="text-blue-400">Unity Source</p>
+                        <p class="text-gray-400 text-sm mb-2">May 2023 - December 2023</p>
+                        <p class="text-gray-300">Worked on the Unity Source HR software, maintaining the HR app using Flutter and Laravel. Implemented new features and fixed bugs to improve user experience.</p>
+                    </div>
+                </div>
+                
+                <div class="timeline-item fade-in" style="animation-delay: 0.4s;">
+                    <div class="ml-6">
+                        <h3 class="text-xl font-semibold">Software Engineer</h3>
+                        <p class="text-blue-400">Blue Ocean Operation Management</p>
+                        <p class="text-gray-400 text-sm mb-2">January 2022 - April 2023</p>
+                        <p class="text-gray-300">Maintained various web applications and messaging systems, including the Samsung Messenger Real-time Chat System using Laravel and Vue.js. Analyzed user reports and implemented system improvements.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Projects Section -->
+    <section id="projects" class="py-20" style="background-color: rgba(30, 41, 59, 0.3);">
+        <div class="container mx-auto px-8">
+            <h2 class="text-3xl font-bold section-title">Featured Projects</h2>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
+                <div class="project-card fade-in" style="animation-delay: 0.1s;">
+                    <div class="card overflow-hidden">
+                        <div class="bg-blue-900 p-12 flex items-center justify-center h-48">
+                            <i class="fas fa-beer text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Yoma Beer New Year Campaign</h3>
+                            <p class="text-gray-400 mb-4">React Js, Nest Js</p>
+                            <p class="text-gray-300">Developed 2D Augmented Reality for AR stickers and virtual try-ons in a festival promotional campaign. Collaborated with cross-functional teams to conceptualize and execute immersive AR experiences.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in" style="animation-delay: 0.2s;">
+                    <div class="card overflow-hidden">
+                        <div class="bg-blue-900 p-12 flex items-center justify-center h-48">
+                            <i class="fas fa-shield-alt text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Black Shield Beer Campaign</h3>
+                            <p class="text-gray-400 mb-4">React Js, Nest Js</p>
+                            <p class="text-gray-300">Planned and developed a festival promotional campaign, conceptualizing the campaign algorithm. Collaborated with a cross-functional team to implement and execute the strategy.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in" style="animation-delay: 0.3s;">
+                    <div class="card overflow-hidden">
+                        <div class="bg-blue-900 p-12 flex items-center justify-center h-48">
+                            <i class="fas fa-comment-dots text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Messenger Chatbot Dashboard</h3>
+                            <p class="text-gray-400 mb-4">Laravel, Vue</p>
+                            <p class="text-gray-300">Maintained the Messenger chatbot dashboard and controlled the flow of multiple bots on messenger. Managed the chat flow and optimized user interactions.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in" style="animation-delay: 0.4s;">
+                    <div class="card overflow-hidden">
+                        <div class="bg-blue-900 p-12 flex items-center justify-center h-48">
+                            <i class="fas fa-comments text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Samsung Messenger Chat System</h3>
+                            <p class="text-gray-400 mb-4">Laravel, Vue</p>
+                            <p class="text-gray-300">Maintained the Samsung Messenger Real-time Chat System that enabled real-time user interaction and in-depth user report analysis. Utilized Laravel on the backend and Vue.js on the frontend.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in" style="animation-delay: 0.5s;">
+                    <div class="card overflow-hidden">
+                        <div class="bg-blue-900 p-12 flex items-center justify-center h-48">
+                            <i class="fas fa-mobile-alt text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Mall Plus Delivery Services</h3>
+                            <p class="text-gray-400 mb-4">Flutter, Laravel</p>
+                            <p class="text-gray-300">Played a crucial role as a mobile developer in maintaining and redesigning the customer facing food ordering app and delivery biker app with Flutter and Laravel.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card fade-in" style="animation-delay: 0.6s;">
+                    <div class="card overflow-hidden">
+                        <div class="bg-blue-900 p-12 flex items-center justify-center h-48">
+                            <i class="fas fa-graduation-cap text-6xl text-blue-400"></i>
+                        </div>
+                        <div class="p-6">
+                            <h3 class="text-xl font-semibold mb-2">Myanmar Teacher Platform</h3>
+                            <p class="text-gray-400 mb-4">Flutter</p>
+                            <p class="text-gray-300">Redesign and maintenance of the Myanmar Teacher Platform app. Implemented new features and improved the user experience based on user feedback.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contact" class="py-20">
+        <div class="container mx-auto px-8">
+            <h2 class="text-3xl font-bold section-title">Get In Touch</h2>
+            
+            <div class="flex flex-col md:flex-row mt-8">
+                <div class="md:w-1/2 mb-8 md:mb-0 fade-in">
+                    <p class="text-gray-300 mb-6">I'm currently available for freelance work. If you have a project that needs some creative touch, feel free to contact me.</p>
+                    
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 bg-opacity-10 flex items-center justify-center mr-4">
+                            <i class="fas fa-envelope text-blue-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Email</p>
+                            <p class="font-medium">thihasithu0224@gmail.com</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mb-4">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 bg-opacity-10 flex items-center justify-center mr-4">
+                            <i class="fas fa-phone text-blue-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Phone</p>
+                            <p class="font-medium">+66628369284</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 rounded-full bg-blue-400 bg-opacity-10 flex items-center justify-center mr-4">
+                            <i class="fas fa-map-marker-alt text-blue-400"></i>
+                        </div>
+                        <div>
+                            <p class="text-gray-400">Location</p>
+                            <p class="font-medium">No. 5, Ramkhamhaeng 81/4, Hua mak, Bang Kapi, Bangkok, Thailand</p>
+                        </div>
+                    </div>
+                    
+                    <div class="flex mt-8">
+                        <a href="https://github.com/thihako2" target="_blank" class="social-icon">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://linkedin.com/in/thiha-ko-ko-24308a1a5" target="_blank" class="social-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="https://line.me/ti/p/VQsvVppMQt" target="_blank" class="social-icon">
+                            <i class="fab fa-line"></i>
+                        </a>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 md:pl-8 fade-in" style="animation-delay: 0.2s;">
+                    <div class="card p-6">
+                        <h3 class="text-xl font-semibold mb-6">Send a Message</h3>
+                        
+                        <form>
+                            <div class="mb-4">
+                                <label for="name" class="block text-gray-400 mb-2">Name</label>
+                                <input type="text" id="name" class="w-full px-4 py-3 rounded-lg bg-blue-900 bg-opacity-20 border border-blue-900 focus:border-blue-400 focus:outline-none transition" placeholder="Your name">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="email" class="block text-gray-400 mb-2">Email</label>
+                                <input type="email" id="email" class="w-full px-4 py-3 rounded-lg bg-blue-900 bg-opacity-20 border border-blue-900 focus:border-blue-400 focus:outline-none transition" placeholder="Your email">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label for="subject" class="block text-gray-400 mb-2">Subject</label>
+                                <input type="text" id="subject" class="w-full px-4 py-3 rounded-lg bg-blue-900 bg-opacity-20 border border-blue-900 focus:border-blue-400 focus:outline-none transition" placeholder="Subject">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label for="message" class="block text-gray-400 mb-2">Message</label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 rounded-lg bg-blue-900 bg-opacity-20 border border-blue-900 focus:border-blue-400 focus:outline-none transition" placeholder="Your message"></textarea>
+                            </div>
+                            
+                            <button type="submit" class="btn-primary w-full py-3 rounded-lg font-medium">Send Message</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="py-8" style="background-color: rgba(15, 23, 42, 0.95);">
+        <div class="container mx-auto px-8 text-center">
+            <p class="text-gray-400">© 2025 Thiha Ko Ko. All rights reserved.</p>
+            <p class="text-gray-500 text-sm mt-2">Mobile & Web Developer</p>
+        </div>
+    </footer>
+    
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.querySelector('.mobile-menu-button');
+        const mobileMenu = document.querySelector('.mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+        });
+        
+        // Intersection Observer for fade-in animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '0';
+                    entry.target.style.animation = 'fadeIn 1s ease forwards';
+                }
+            });
+        }, { threshold: 0.1 });
+        
+        fadeElements.forEach(element => {
+            fadeObserver.observe(element);
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                    
+                    // Close mobile menu if open
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                        mobileMenu.classList.remove('flex');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
